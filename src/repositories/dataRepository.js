@@ -1,3 +1,4 @@
+const { restart } = require("nodemon");
 const db = require("../config/database");
 
 const getAllDonor = (callback) => {
@@ -51,8 +52,33 @@ const createDonor = (data, callback) => {
   );
 };
 
+const updateDonor = (data, callback) => {
+  const query =
+    "UPDATE donors SET name = ?, age = ?, religion = ?, phone = ?, address = ?, updatedAt = ? WHERE uuid = ?";
+  db.query(
+    query,
+    [
+      data.name,
+      data.age,
+      data.religion,
+      data.phone,
+      data.address,
+      data.updatedAt,
+      data.uuid,
+    ],
+    (error, result) => {
+      if (error) {
+        console.error(`Error updating data: ${error}`);
+        return callback({ error: "Error updating data" });
+      }
+      callback(null, result);
+    }
+  );
+};
+
 module.exports = {
   getAllDonor,
   getDonorById,
   createDonor,
+  updateDonor,
 };

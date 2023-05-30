@@ -60,8 +60,39 @@ const createDonor = (req, res) => {
   });
 };
 
+const updateDonor = (req, res) => {
+  const { uuid } = req.params;
+  const { name, age, religion, phone, address } = req.body;
+
+  if (!name || !age || !religion || !phone || !address) {
+    return res.status(400).json({ error: "All data are required" });
+  }
+
+  const updatedAt = new Date().toJSON().slice(0, 19).replace("T", " ");
+
+  const updateDonor = {
+    uuid,
+    name,
+    age,
+    religion,
+    phone,
+    address,
+    updatedAt,
+  };
+
+  dataRepository.updateDonor(updateDonor, (error, result) => {
+    if (error) {
+      return res
+        .status(500)
+        .json({ error: "An error occurred while updating data" });
+    }
+    res.json(result);
+  });
+};
+
 module.exports = {
   getAllDonor,
   getDonorById,
   createDonor,
+  updateDonor,
 };

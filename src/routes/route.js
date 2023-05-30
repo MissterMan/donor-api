@@ -8,5 +8,6 @@ router.get("/", (req, res) => {
 router.get("/donors", dataController.getAllDonor);
 router.get("/donors/:uuid", dataController.getDonorById);
 router.post("/donors", dataController.createDonor);
+router.put("/donors/:uuid", dataController.updateDonor);
 
 module.exports = router;
