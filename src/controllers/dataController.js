@@ -28,40 +28,40 @@ const getDonorById = (req, res) => {
   });
 };
 
-// const createDonor = (req, res) => {
-//   const { name, age, religion, phone, address } = req.body;
+const createDonor = (req, res) => {
+  const { name, age, religion, phone, address } = req.body;
 
-//   if (!name || !age || !religion || !phone || !address) {
-//     return res.status(400).json({ error: "All data are required" });
-//   }
+  if (!name || !age || !religion || !phone || !address) {
+    return res.status(400).json({ error: "All data are required" });
+  }
 
-//   const uuid = uuidv4();
-//   const insertedAt = new Date().toISOString();
-//   const updatedAt = insertedAt;
+  const uuid = uuidv4();
+  const insertedAt = new Date().toJSON().slice(0, 19).replace("T", " ");
+  const updatedAt = insertedAt;
 
-//   const newDonor = {
-//     uuid,
-//     name,
-//     age,
-//     religion,
-//     phone,
-//     address,
-//     insertedAt,
-//     updatedAt,
-//   };
+  const newDonor = {
+    uuid,
+    name,
+    age,
+    religion,
+    phone,
+    address,
+    insertedAt,
+    updatedAt,
+  };
 
-//   dataRepository.createDonor(newDonor, (error, result) => {
-//     if (error) {
-//       return res
-//         .status(500)
-//         .json({ error: "An error occured while creating data" });
-//     }
-//     res.status(201).json(result);
-//   });
-// };
+  dataRepository.createDonor(newDonor, (error, result) => {
+    if (error) {
+      return res
+        .status(500)
+        .json({ error: "An error occured while creating data" });
+    }
+    res.status(201).json(result);
+  });
+};
 
 module.exports = {
   getAllDonor,
   getDonorById,
-  // createDonor,
+  createDonor,
 };

@@ -26,11 +26,33 @@ const getDonorById = (uuid, callback) => {
   });
 };
 
-// const createDonor = (data, callback) => {
-//   const query = 'INSERT '
-// };
+const createDonor = (data, callback) => {
+  const query =
+    "INSERT INTO donors (uuid, name, age, religion, phone, address, insertedAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  db.query(
+    query,
+    [
+      data.uuid,
+      data.name,
+      data.age,
+      data.religion,
+      data.phone,
+      data.address,
+      data.insertedAt,
+      data.updatedAt,
+    ],
+    (error, result) => {
+      if (error) {
+        console.error(`Error creating data: ${error}`);
+        return callback({ error: "Error creating data" });
+      }
+      callback(null, result);
+    }
+  );
+};
 
 module.exports = {
   getAllDonor,
   getDonorById,
+  createDonor,
 };
