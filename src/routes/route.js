@@ -6,5 +6,6 @@ router.get("/", (req, res) => {
   res.send("Hello World");
 });
 router.get("/donors", dataController.getAllDonor);
+router.get("/donors/:uuid", dataController.getDonorById);
 
 module.exports = router;
