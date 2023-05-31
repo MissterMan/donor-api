@@ -90,9 +90,23 @@ const updateDonor = (req, res) => {
   });
 };
 
+const deleteDonor = (req, res) => {
+  const { uuid } = req.params;
+
+  dataRepository.deleteDonor(uuid, (error, result) => {
+    if (error) {
+      return res
+        .status(500)
+        .json({ error: "An error occured while deleting data" });
+    }
+    res.json(result);
+  });
+};
+
 module.exports = {
   getAllDonor,
   getDonorById,
   createDonor,
   updateDonor,
+  deleteDonor,
 };

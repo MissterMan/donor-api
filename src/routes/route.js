@@ -9,5 +9,6 @@ router.get("/donors", dataController.getAllDonor);
 router.get("/donors/:uuid", dataController.getDonorById);
 router.post("/donors", dataController.createDonor);
 router.put("/donors/:uuid", dataController.updateDonor);
+router.delete("/donors/:uuid", dataController.deleteDonor);
 
 module.exports = router;

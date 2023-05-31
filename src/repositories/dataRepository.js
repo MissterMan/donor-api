@@ -76,9 +76,21 @@ const updateDonor = (data, callback) => {
   );
 };
 
+const deleteDonor = (uuid, callback) => {
+  const query = "DELETE FROM donors WHERE uuid = ?";
+  db.query(query, [uuid], (error, result) => {
+    if (error) {
+      console.error(`Error deleting data: ${error}`);
+      return callback({ error: "Error deleting data" });
+    }
+    callback(null, result);
+  });
+};
+
 module.exports = {
   getAllDonor,
   getDonorById,
   createDonor,
   updateDonor,
+  deleteDonor,
 };
