@@ -1,9 +1,9 @@
 const { restart } = require("nodemon");
 const db = require("../config/database");
 
-const getAllDonor = (callback) => {
-  const query = "SELECT * FROM donors";
-  db.query(query, (error, results) => {
+const getAllDonor = (userId, callback) => {
+  const query = "SELECT * FROM donors WHERE userId = ?";
+  db.query(query, [userId], (error, results) => {
     if (error) {
       console.error(`Error retrieving data: ${error}`);
       return callback({ error: "Error retrieving data" });

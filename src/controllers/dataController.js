@@ -2,7 +2,8 @@ const dataRepository = require("../repositories/dataRepository");
 const { v4: uuidv4 } = require("uuid");
 
 const getAllDonor = (req, res) => {
-  dataRepository.getAllDonor((error, data) => {
+  const userId = req.user.uid;
+  dataRepository.getAllDonor(userId, (error, data) => {
     if (error) {
       return res
         .status(500)
