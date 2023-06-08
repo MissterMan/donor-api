@@ -1,39 +1,49 @@
 const dataRepository = require("../repositories/dataRepository");
 const { v4: uuidv4 } = require("uuid");
+const response = require("../utils/response");
 
 const getAllDonor = (req, res) => {
   const userId = req.user.uid;
   dataRepository.getAllDonor(userId, (error, data) => {
     if (error) {
-      return res
-        .status(500)
-        .json({ error: "An error occured while retrieving data" });
+      return response(
+        500,
+        "Data Error",
+        "An error occured while retrieving data",
+        res
+      );
     }
-    res.json(data);
+    response(200, data, "Get All User Transaction Donor or Recipt", res);
   });
 };
 
 const getDonorById = (req, res) => {
+  const userId = req.user.uid;
   const { uuid } = req.params;
 
-  dataRepository.getDonorById(uuid, (error, data) => {
+  dataRepository.getDonorById(userId, uuid, (error, data) => {
     if (error) {
-      return res
-        .status(500)
-        .json({ error: "An error occured while retrieving data" });
+      return response(
+        500,
+        "Data Error",
+        "An error occured while retrieving data",
+        res
+      );
     }
     if (!data) {
-      return res.status(404).json({ error: "Data not found" });
+      return response(404, "Data Error", "Data Not Found", res);
     }
-    res.json(data);
+    response(200, data, "Get Transaction Data by ID", res);
   });
 };
 
 const createDonor = (req, res) => {
-  const { name, age, religion, phone, address } = req.body;
+  const userId = req.user.uid;
+  const { name, age, religion, phone, dietary, address, role } = req.body;
 
-  if (!name || !age || !religion || !phone || !address) {
-    return res.status(400).json({ error: "All data are required" });
+  if (!name || !age || !religion || !phone || !dietary || !address || !role) {
+    return response(400, "Data Error", "All data are required", res);
+    // return res.status(400).json({ error: "All data are required" });
   }
 
   const uuid = uuidv4();
@@ -41,32 +51,40 @@ const createDonor = (req, res) => {
   const updatedAt = insertedAt;
 
   const newDonor = {
+    userId,
     uuid,
     name,
     age,
     religion,
     phone,
+    dietary,
     address,
+    role,
     insertedAt,
     updatedAt,
   };
 
   dataRepository.createDonor(newDonor, (error, result) => {
     if (error) {
-      return res
-        .status(500)
-        .json({ error: "An error occured while creating data" });
+      return response(
+        500,
+        "Server Error",
+        "An error occured while creating data",
+        res
+      );
     }
-    res.status(201).json(result);
+
+    response(201, result.affectedRows, "Data Added Successfuly", res);
+    // res.status(201).json(result);
   });
 };
 
 const updateDonor = (req, res) => {
   const { uuid } = req.params;
-  const { name, age, religion, phone, address } = req.body;
+  const { name, phone, address } = req.body;
 
-  if (!name || !age || !religion || !phone || !address) {
-    return res.status(400).json({ error: "All data are required" });
+  if (!name || !phone || !address) {
+    return response(400, "Data Error", "All data are required", res);
   }
 
   const updatedAt = new Date().toJSON().slice(0, 19).replace("T", " ");
@@ -74,8 +92,6 @@ const updateDonor = (req, res) => {
   const updateDonor = {
     uuid,
     name,
-    age,
-    religion,
     phone,
     address,
     updatedAt,
@@ -83,11 +99,9 @@ const updateDonor = (req, res) => {
 
   dataRepository.updateDonor(updateDonor, (error, result) => {
     if (error) {
-      return res
-        .status(500)
-        .json({ error: "An error occurred while updating data" });
+      response(500, "Data Error", "An error occurred while updating data", res);
     }
-    res.json(result);
+    response(200, result.affectedRows, "Data Updated Successfuly", res);
   });
 };
 
@@ -96,11 +110,9 @@ const deleteDonor = (req, res) => {
 
   dataRepository.deleteDonor(uuid, (error, result) => {
     if (error) {
-      return res
-        .status(500)
-        .json({ error: "An error occured while deleting data" });
+      response(500, "Data Error", "An error occured while deleting data", res);
     }
-    res.json(result);
+    response(200, result.affectedRows, "Data Deleted Successfuly", res);
   });
 };
 
