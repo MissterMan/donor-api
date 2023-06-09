@@ -1,9 +1,8 @@
-const { restart } = require("nodemon");
 const db = require("../config/database");
 
-const getAllDonor = (callback) => {
-  const query = "SELECT * FROM donors";
-  db.query(query, (error, results) => {
+const getAllDonor = (userId, callback) => {
+  const query = "SELECT * FROM donors WHERE userId = ?";
+  db.query(query, [userId], (error, results) => {
     if (error) {
       console.error(`Error retrieving data: ${error}`);
       return callback({ error: "Error retrieving data" });
@@ -12,10 +11,10 @@ const getAllDonor = (callback) => {
   });
 };
 
-const getDonorById = (uuid, callback) => {
-  const query = `SELECT * FROM donors WHERE uuid = ?`;
+const getDonorById = (userId, uuid, callback) => {
+  const query = `SELECT * FROM donors WHERE userId = ? AND uuid = ?`;
 
-  db.query(query, [uuid], (error, results) => {
+  db.query(query, [userId, uuid], (error, results) => {
     if (error) {
       console.log(`Error retrieving data by uuid: ${error}`);
       return callback({ error: "Error retrieving data by uuid" });
@@ -29,16 +28,19 @@ const getDonorById = (uuid, callback) => {
 
 const createDonor = (data, callback) => {
   const query =
-    "INSERT INTO donors (uuid, name, age, religion, phone, address, insertedAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO donors (userId, uuid, name, age, religion, phone, dietary, address, role, insertedAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   db.query(
     query,
     [
+      data.userId,
       data.uuid,
       data.name,
       data.age,
       data.religion,
       data.phone,
+      data.dietary,
       data.address,
+      data.role,
       data.insertedAt,
       data.updatedAt,
     ],
@@ -54,18 +56,10 @@ const createDonor = (data, callback) => {
 
 const updateDonor = (data, callback) => {
   const query =
-    "UPDATE donors SET name = ?, age = ?, religion = ?, phone = ?, address = ?, updatedAt = ? WHERE uuid = ?";
+    "UPDATE donors SET name = ?, phone = ?, address = ?, updatedAt = ? WHERE uuid = ?";
   db.query(
     query,
-    [
-      data.name,
-      data.age,
-      data.religion,
-      data.phone,
-      data.address,
-      data.updatedAt,
-      data.uuid,
-    ],
+    [data.name, data.phone, data.address, data.updatedAt, data.uuid],
     (error, result) => {
       if (error) {
         console.error(`Error updating data: ${error}`);
