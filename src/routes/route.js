@@ -3,9 +3,6 @@ const router = express.Router();
 const dataController = require("../controllers/dataController");
 const authenticationMiddleware = require("../middlewares/authenticationMiddleware");
 
-router.get("/", (req, res) => {
-  res.send("Hello World");
-});
 router.get(
   "/donors",
   authenticationMiddleware.authenticateUser,

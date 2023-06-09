@@ -1,6 +1,4 @@
-const { restart } = require("nodemon");
 const db = require("../config/database");
-const response = require("../utils/response");
 
 const getAllDonor = (userId, callback) => {
   const query = "SELECT * FROM donors WHERE userId = ?";

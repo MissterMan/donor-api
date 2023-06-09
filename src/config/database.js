@@ -1,11 +1,10 @@
 const mysql = require("mysql");
 
-// DEVELOPMET RUNNING ON CONTAINER
 const db_connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "db_donor",
+  host: "{CHANGE TO THE HOST NAME}",
+  user: "{USERNAME}",
+  password: "{PASSWORD}",
+  database: "{DATABASE NAME}",
 });
 
 db_connection.connect((error) => {

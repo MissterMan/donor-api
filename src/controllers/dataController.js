@@ -43,7 +43,6 @@ const createDonor = (req, res) => {
 
   if (!name || !age || !religion || !phone || !dietary || !address || !role) {
     return response(400, "Data Error", "All data are required", res);
-    // return res.status(400).json({ error: "All data are required" });
   }
 
   const uuid = uuidv4();
@@ -75,7 +74,6 @@ const createDonor = (req, res) => {
     }
 
     response(201, result.affectedRows, "Data Added Successfuly", res);
-    // res.status(201).json(result);
   });
 };
 
