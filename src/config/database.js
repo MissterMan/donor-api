@@ -3,7 +3,7 @@ require("dotenv").config();
 
 // PRODUCTION ONLY (DONT FORGET TO START THE MACHINE)
 const db_connection = mysql.createConnection({
-  host: process.env.HOST || "localhost",
+  host: process.env.HOST,
   user: process.env.USER,
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
