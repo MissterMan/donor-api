@@ -28,7 +28,7 @@ const getDonorById = (userId, uuid, callback) => {
 
 const createDonor = (data, callback) => {
   const query =
-    "INSERT INTO donors (userId, uuid, name, age, religion, phone, dietary, address, role, insertedAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO donors (userId, uuid, name, age, religion, health_condition, is_smoke, blood_type, phone, dietary, address, role, insertedAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   db.query(
     query,
     [
@@ -37,6 +37,9 @@ const createDonor = (data, callback) => {
       data.name,
       data.age,
       data.religion,
+      data.health_condition,
+      data.is_smoke,
+      data.blood_type,
       data.phone,
       data.dietary,
       data.address,

@@ -39,9 +39,31 @@ const getDonorById = (req, res) => {
 
 const createDonor = (req, res) => {
   const userId = req.user.uid;
-  const { name, age, religion, phone, dietary, address, role } = req.body;
+  const {
+    name,
+    age,
+    religion,
+    health_condition,
+    is_smoke,
+    blood_type,
+    phone,
+    dietary,
+    address,
+    role,
+  } = req.body;
 
-  if (!name || !age || !religion || !phone || !dietary || !address || !role) {
+  if (
+    !name ||
+    !age ||
+    !religion ||
+    !health_condition ||
+    !is_smoke ||
+    !blood_type ||
+    !phone ||
+    !dietary ||
+    !address ||
+    !role
+  ) {
     return response(400, "Data Error", "All data are required", res);
   }
 
@@ -55,6 +77,9 @@ const createDonor = (req, res) => {
     name,
     age,
     religion,
+    health_condition,
+    is_smoke,
+    blood_type,
     phone,
     dietary,
     address,
