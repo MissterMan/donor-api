@@ -30,7 +30,7 @@ const getDonorById = (req, res) => {
         res
       );
     }
-    if (!data) {
+    if (data === null || data === "" || !data) {
       return response(404, "Data Error", "Data Not Found", res);
     }
     response(200, data, "Get Transaction Data by ID", res);
@@ -49,6 +49,8 @@ const createDonor = (req, res) => {
     phone,
     dietary,
     address,
+    latitude,
+    longitude,
     role,
   } = req.body;
 
@@ -83,6 +85,8 @@ const createDonor = (req, res) => {
     phone,
     dietary,
     address,
+    latitude,
+    longitude,
     role,
     insertedAt,
     updatedAt,
@@ -124,7 +128,10 @@ const updateDonor = (req, res) => {
     if (error) {
       response(500, "Data Error", "An error occurred while updating data", res);
     }
-    response(200, result.affectedRows, "Data Updated Successfuly", res);
+    if (result.affectedRows === 0) {
+      return response(404, "Data Error", "Data Added Successfuly", res);
+    }
+    response(200, result.affectedRows, "Data Added Successfuly", res);
   });
 };
 
@@ -134,6 +141,9 @@ const deleteDonor = (req, res) => {
   dataRepository.deleteDonor(uuid, (error, result) => {
     if (error) {
       response(500, "Data Error", "An error occured while deleting data", res);
+    }
+    if (result.affectedRows === 0) {
+      return response(404, "Data Error", "Data Added Successfuly", res);
     }
     response(200, result.affectedRows, "Data Deleted Successfuly", res);
   });
