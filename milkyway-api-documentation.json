@@ -1,0 +1,803 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Milkyway API",
+    "version": "1.0"
+  },
+  "servers": [{ "url": "http://35.187.224.252/" }],
+  "paths": {
+    "/api/donors": {
+      "get": {
+        "summary": "Get All transaction",
+        "description": "Get All donor or recipt transaction by the userId",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": false,
+            "description": "Get specified transaction donor or recipt based on uuid",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get All User Transaction Donor or Recipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "payload": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "userId": {
+                            "type": "string"
+                          },
+                          "uuid": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "age": {
+                            "type": "integer"
+                          },
+                          "religion": {
+                            "type": "string"
+                          },
+                          "health_condition": {
+                            "type": "string"
+                          },
+                          "is_smoke": {
+                            "type": "string"
+                          },
+                          "blood_type": {
+                            "type": "string"
+                          },
+                          "phone": {
+                            "type": "string"
+                          },
+                          "dietary": {
+                            "type": "string"
+                          },
+                          "address": {
+                            "type": "string"
+                          },
+                          "latitude": {
+                            "type": "string"
+                          },
+                          "longitude": {
+                            "type": "string"
+                          },
+                          "role": {
+                            "type": "string"
+                          },
+                          "insertedAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "description": "Examples success get all transaction list",
+                    "value": [
+                      {
+                        "status_code": 200,
+                        "message": "Get All User Transaction Donor or Recipt",
+                        "payload": [
+                          {
+                            "id": 14,
+                            "userId": "2NhHL4A1xTZTllxhohOum0SXyG93",
+                            "uuid": "8689bc73-97c8-490c-b4c1-b12e9b8b01f2",
+                            "name": "Jonh Doe",
+                            "age": 20,
+                            "religion": "Muslim",
+                            "health_condition": "Yes",
+                            "is_smoke": "No",
+                            "blood_type": "A",
+                            "phone": "081234567999",
+                            "dietary": "No Restriction",
+                            "address": "Jl. Jalan",
+                            "latitude": "-7.301866",
+                            "longitude": "112.739645",
+                            "role": "Donor",
+                            "insertedAt": "2023-06-10T09:06:32.000Z",
+                            "updatedAt": "2023-06-10T09:06:32.000Z"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create new transaction",
+        "description": "Create new donor or recipt transaction",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true
+                  },
+                  "age": {
+                    "type": "integer",
+                    "minLength": 1,
+                    "maxLength": 10,
+                    "required": true
+                  },
+                  "religion": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "required": true
+                  },
+                  "phone": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 13,
+                    "required": true
+                  },
+                  "health_condition": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "required": true
+                  },
+                  "is_smoke": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 10,
+                    "required": true
+                  },
+                  "blood_type": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 10,
+                    "required": true
+                  },
+                  "dietary": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "required": true
+                  },
+                  "address": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "required": true
+                  },
+                  "latitude": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": false
+                  },
+                  "longitude": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": false
+                  },
+                  "role": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true
+                  },
+                  "age": {
+                    "type": "integer",
+                    "minLength": 1,
+                    "maxLength": 10,
+                    "required": true
+                  },
+                  "religion": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "required": true
+                  },
+                  "phone": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 13,
+                    "required": true
+                  },
+                  "health_condition": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "required": true
+                  },
+                  "is_smoke": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 10,
+                    "required": true
+                  },
+                  "blood_type": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 10,
+                    "required": true
+                  },
+                  "dietary": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "required": true
+                  },
+                  "address": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "required": true
+                  },
+                  "latitude": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": false
+                  },
+                  "longitude": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": false
+                  },
+                  "role": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfuly create new data transaction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "payload": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "description": "Examples Successfuly create new transaction data",
+                    "value": {
+                      "status_code": 201,
+                      "message": "Data Added Successfuly",
+                      "payload": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed creating new data transaction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "payload": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "failed": {
+                    "description": "Examples failed creating new transaction data",
+                    "value": {
+                      "status_code": 400,
+                      "message": "All data are required",
+                      "payload": "Data Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "payload": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "failed": {
+                    "description": "Examples error create new transaction data",
+                    "value": {
+                      "status_code": 500,
+                      "message": "An error occured while creating data",
+                      "payload": "Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/donors/{uuid}": {
+      "put": {
+        "summary": "Update transaction",
+        "description": "Update specified donor or recipt transaction",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "description": "Update specified transaction donor or recipt based on uuid",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true
+                  },
+                  "phone": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 13,
+                    "required": true
+                  },
+                  "address": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "required": true
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true
+                  },
+                  "phone": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 13,
+                    "required": true
+                  },
+                  "address": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfuly updated data transaction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "payload": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "description": "Examples Successfuly update new transaction data",
+                    "value": {
+                      "status_code": 200,
+                      "message": "Data Added Successfuly",
+                      "payload": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed updating data transaction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "payload": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "failed": {
+                    "description": "Examples failed updatinig transaction data",
+                    "value": {
+                      "status_code": 400,
+                      "message": "All data are required",
+                      "payload": "Data Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failed updating data transaction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "payload": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "failed": {
+                    "description": "Examples failed updatinig transaction data",
+                    "value": {
+                      "status_code": 404,
+                      "message": "Data not found",
+                      "payload": "Data Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "payload": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "failed": {
+                    "description": "Examples error whiile uppdating transaction data",
+                    "value": {
+                      "status_code": 500,
+                      "message": "An error occured while updating data",
+                      "payload": "Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete transaction",
+        "description": "Delete specified existing donor or recipt transaction",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "description": "Delete specified existing transaction donor or recipt based on uuid",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfuly delete data transaction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "payload": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "description": "Examples Successfuly delete new transaction data",
+                    "value": {
+                      "status_code": 200,
+                      "message": "Data Successfuly Deleted",
+                      "payload": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failed deleting data transaction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "payload": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "failed": {
+                    "description": "Examples failed deleting transaction data",
+                    "value": {
+                      "status_code": 404,
+                      "message": "Data not found",
+                      "payload": "Data Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "payload": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "failed": {
+                    "description": "Examples error deleting transaction data",
+                    "value": {
+                      "status_code": 500,
+                      "message": "An error occured while deleting data",
+                      "payload": "Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/model/recommend": {
+      "post": {
+        "summary": "Predict matchmaking",
+        "description": "Predict matchmaking",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Age": {
+                    "type": "integer",
+                    "minLength": 1,
+                    "required": true
+                  },
+                  "Religion": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "required": true
+                  },
+                  "Dietary Restrictions": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "required": true
+                  },
+                  "Health Condition": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true
+                  },
+                  "is_smoke": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true
+                  },
+                  "Blood Type": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 10,
+                    "required": true
+                  },
+                  "Location": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfuly Predict matchmaking",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Age": {
+                      "type": "integer"
+                    },
+                    "Blood type": {
+                      "type": "integer"
+                    },
+                    "Dietary Restrictions": {
+                      "type": "integer"
+                    },
+                    "Health Condition": {
+                      "type": "integer"
+                    },
+                    "Location": {
+                      "type": "string"
+                    },
+                    "Religion": {
+                      "type": "integer"
+                    },
+                    "is_smoke": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "description": "Examples Successfuly create new transaction data",
+                    "value": {
+                      "Age": 25,
+                      "Blood type": 2,
+                      "Dietary Restrictions": 3,
+                      "Health Condition": 0,
+                      "Location": "Cakung, Jakarta Timur",
+                      "Religion": 3,
+                      "is_smoke": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -129,9 +129,9 @@ const updateDonor = (req, res) => {
       response(500, "Data Error", "An error occurred while updating data", res);
     }
     if (result.affectedRows === 0) {
-      return response(404, "Data Error", "Data Added Successfuly", res);
+      return response(404, "Data Error", "Data not found", res);
     }
-    response(200, result.affectedRows, "Data Added Successfuly", res);
+    response(200, result.affectedRows, "Data updated Successfuly", res);
   });
 };
 
@@ -143,7 +143,7 @@ const deleteDonor = (req, res) => {
       response(500, "Data Error", "An error occured while deleting data", res);
     }
     if (result.affectedRows === 0) {
-      return response(404, "Data Error", "Data Added Successfuly", res);
+      return response(404, "Data Error", "Data not found", res);
     }
     response(200, result.affectedRows, "Data Deleted Successfuly", res);
   });
